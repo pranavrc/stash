@@ -88,3 +88,7 @@
 	(if (char= (char firstparam 0) #\!)
 	    (remove-from-store (subseq firstparam 1) *store*)
 	    (get-value-from-store firstparam *store*)))))
+
+(defun hash-keys (hash-table)
+  "Print all keys in hashtable."
+  (loop for key being the hash-keys of hash-table collect key))
