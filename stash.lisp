@@ -51,11 +51,17 @@
 
 (defun set-key-in-store (key value store)
   "Set key in hashtable to value"
-  (setf (gethash key store) value))
+  (let* ((value (gethash key store)))
+    (if (value)
+	"Key exists. Delete before re-inserting."
+	(setf (gethash key store) value))))
 
 (defun get-value-from-store (key store)
   "Get value of key from hashtable"
-  (gethash key store))
+  (let* ((value (gethash key store)))
+    (if (value)
+	value
+	"Key not found.")))
 
 (defun string-split (string delim)
   "Splits a string into substrings around the delimiter."
