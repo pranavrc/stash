@@ -27,7 +27,7 @@
 (defun handle-request (stream)
   "Handle stream data"
   (let ((line (read-line stream)))
-    (format stream "~a" line))
+    (format stream "~a" (parse line)))
   (terpri stream)
   (force-output stream))
 
@@ -52,21 +52,21 @@
 (defun set-key-in-store (key value store)
   "Set key in hashtable to value"
   (let* ((value (gethash key store)))
-    (if (value)
+    (if value
 	"Key exists. Delete before re-inserting."
 	(setf (gethash key store) value))))
 
 (defun get-value-from-store (key store)
   "Get value of key from hashtable"
   (let* ((value (gethash key store)))
-    (if (value)
+    (if value
 	value
 	"Key not found.")))
 
 (defun remove-from-store (key store)
   "Remove key and value from hashtable"
   (let* ((value (remhash key store)))
-    (if (value)
+    (if value
 	"Removed."
 	"Key not found.")))
 
@@ -85,4 +85,4 @@
 	(set-key-in-store firstparam (first (last params)) *store*)
 	(if (char= (char firstparam 0) #\!)
 	    (remove-from-store (subseq firstparam 1) *store*)
-	    (get-value-from-store firstparams *store*)))))
+	    (get-value-from-store firstparam *store*)))))
