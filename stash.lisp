@@ -2,6 +2,7 @@
 (ql:quickload :bordeaux-threads)
 
 (defvar *server* nil)
+(defparameter *store* (make-hash-table :test 'equal))
 
 (defun initialize (port &optional (host usocket:*wildcard-host*))
   "Initialize the server at the host's port"
