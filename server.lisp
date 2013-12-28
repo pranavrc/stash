@@ -3,7 +3,7 @@
 
 (defvar *server* nil)
 
-(defun initialize (host port)
+(defun initialize (port &optional (host usocket:*wildcard-host*))
   (let ((socket (usocket:socket-listen host port :reuse-address t)))
     (setf *server*
 	  (bt:make-thread #'(lambda ()
