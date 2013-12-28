@@ -82,4 +82,4 @@
   (let* ((params (string-split command #\=)))
     (if (> (list-length params) 1)
 	(set-key-in-store (first params) (first (last params)) *store*)
-	(get-value-from-store params))))
+	(get-value-from-store (first params) *store*))))
