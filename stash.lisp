@@ -69,3 +69,10 @@
      as y = (position delim string :start x)
      collect (subseq string x y)
      while y))
+
+(defun parse (command)
+  "Parse an input set or get command."
+  (let* ((params (string-split command #\=)))
+    (if (> (list-length params) 1)
+	(set-key-in-store (first params) (first (last params)) *store*)
+	(get-value-from-store params))))
