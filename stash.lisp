@@ -63,6 +63,13 @@
 	value
 	"Key not found.")))
 
+(defun remove-from-store (key store)
+  "Remove key and value from hashtable"
+  (let* ((value (remhash key store)))
+    (if (value)
+	"Removed."
+	"Key not found.")))
+
 (defun string-split (string delim)
   "Splits a string into substrings around the delimiter."
   (loop for x = 0 then (1+ y)
