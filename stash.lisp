@@ -51,10 +51,12 @@
 
 (defun set-key-in-store (key value store)
   "Set key in hashtable to value"
-  (let* ((value (gethash key store)))
-    (if value
+  (let* ((exists (gethash key store)))
+    (if exists
 	"Key exists. Delete before re-inserting."
-	(setf (gethash key store) value))))
+	(progn
+	  (setf (gethash key store) value)
+	  "Stored."))))
 
 (defun get-value-from-store (key store)
   "Get value of key from hashtable"
