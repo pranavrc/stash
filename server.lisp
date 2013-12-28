@@ -32,3 +32,13 @@
   (let ((server (shiftf *server* nil)))
     (when server
       (bt:destroy-thread server))))
+
+(defun client (port command &optional (host usocket:*wildcard-host*))
+  (let* ((socket (usocket:socket-connect host port))
+	 (stream (usocket:socket-stream socket)))
+    (write-line command stream)
+    (force-output stream)
+    (let ((result (read-line stream)))
+      (close stream)
+      (usocket:socket-close socket)
+      result)))
