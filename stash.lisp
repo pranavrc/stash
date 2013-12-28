@@ -79,7 +79,10 @@
 
 (defun parse (command)
   "Parse an input set or get command."
-  (let* ((params (string-split command #\=)))
+  (let* ((params (string-split command #\=))
+	 (firstparam (first params)))
     (if (> (list-length params) 1)
-	(set-key-in-store (first params) (first (last params)) *store*)
-	(get-value-from-store (first params) *store*))))
+	(set-key-in-store firstparam (first (last params)) *store*)
+	(if (char= (char firstparam 0) #\!)
+	    (remove-from-store (subseq firstparam 1) *store*)
+	    (get-value-from-store firstparams *store*)))))
