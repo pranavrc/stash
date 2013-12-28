@@ -48,6 +48,14 @@
       (usocket:socket-close socket)
       result)))
 
+(defun set-key-in-store (key value store)
+  "Set key in hashtable to value"
+  (setf (gethash key store) value))
+
+(defun get-value-from-store (key store)
+  "Get value of key from hashtable"
+  (gethash key store))
+
 (defun string-split (string delim)
   "Splits a string into substrings around the delimiter."
   (loop for x = 0 then (1+ y)
