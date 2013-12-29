@@ -82,13 +82,17 @@
 (defun parse (command)
   "Parse an input set or get command."
   (let* ((params (string-split command #\=))
-	 (firstparam (first params)))
+	 (firstparam (strip-whitespaces (first params))))
     (if (> (list-length params) 1)
-	(set-key-in-store firstparam (first (last params)) *store*)
+	(set-key-in-store firstparam (strip-whitespaces (first (last params))) *store*)
 	(if (char= (char firstparam 0) #\!)
-	    (remove-from-store (subseq firstparam 1) *store*)
+	    (remove-from-store (strip-whitespaces (subseq firstparam 1)) *store*)
 	    (get-value-from-store firstparam *store*)))))
 
 (defun hash-keys (hash-table)
   "Print all keys in hashtable."
   (loop for key being the hash-keys of hash-table collect key))
+
+(defun strip-whitespaces (string)
+  "Strip trailing and leading whitespaces from string."
+  (string-trim " " string))
