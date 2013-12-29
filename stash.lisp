@@ -4,8 +4,8 @@
 (defvar *server* nil)
 (defparameter *store* (make-hash-table :test 'equal))
 
-(defun serve (port &optional (host usocket:*wildcard-host*))
-  "Serve at the host's port"
+(defun initialize (port &optional (host usocket:*wildcard-host*))
+  "Initialize the server at the host's port"
   (let ((socket (usocket:socket-listen host port :reuse-address t)))
     (setf *server*
 	  (bt:make-thread #'(lambda ()
@@ -14,7 +14,7 @@
 				(usocket:socket-close socket)))
 			  :name (format nil "Server at ~a port" port)))))
 
-(defun initialize (socket)
+(defun serve (socket)
   "Create a socket stream and open it"
   (loop
      (usocket:wait-for-input socket :timeout 5)

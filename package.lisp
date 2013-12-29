@@ -2,8 +2,8 @@
 
 (defpackage :stash
   (:use :cl :bordeaux-threads :usocket)
-  (:export #:serve
-	   #:initialize
+  (:export #:initialize
+	   #:serve
 	   #:handle-request
 	   #:terminate
 	   #:client
