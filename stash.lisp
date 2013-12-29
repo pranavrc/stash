@@ -62,15 +62,15 @@
   "Get value of key from hashtable"
   (let* ((value (gethash key store)))
     (if value
-	value
-	"Key not found.")))
+	(format nil "~a" value)
+	(format nil "~a wasn't found." key))))
 
 (defun remove-from-store (key store)
   "Remove key and value from hashtable"
   (let* ((value (remhash key store)))
     (if value
-	"Removed."
-	"Key not found.")))
+	(format nil "~a has been removed." key)
+	(format nil "~a wasn't found." key))))
 
 (defun string-split (string delim)
   "Splits a string into substrings around the delimiter."
