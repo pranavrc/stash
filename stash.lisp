@@ -1,6 +1,3 @@
-(ql:quickload :usocket)
-(ql:quickload :bordeaux-threads)
-
 (defvar *server* nil)
 (defparameter *store* (make-hash-table :test 'equal))
 
