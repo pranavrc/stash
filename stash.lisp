@@ -2,7 +2,7 @@
 (defparameter *store* (make-hash-table :test 'equal))
 
 (defun initialize (port &optional (host usocket:*wildcard-host*))
-  "Initialize the server at the host's port"
+  "Initialize the server at the host's port."
   (let ((socket (usocket:socket-listen host port :reuse-address t)))
     (setf *server*
 	  (bt:make-thread #'(lambda ()
@@ -12,7 +12,7 @@
 			  :name (format nil "Server at ~a port" port)))))
 
 (defun serve (socket)
-  "Create a socket stream and open it"
+  "Create a socket stream and open it."
   (loop
      (usocket:wait-for-input socket :timeout 5)
      (let ((stream (usocket:socket-stream (usocket:socket-accept socket))))
@@ -30,13 +30,13 @@
 
 #+bordeaux-threads
 (defun terminate ()
-  "Terminate the server thread"
+  "Terminate the server thread."
   (let ((server (shiftf *server* nil)))
     (when server
       (bt:destroy-thread server))))
 
 (defun client (port command &optional (host usocket:*wildcard-host*))
-  "Client function to write to the server stream"
+  "Client function to write to the server stream."
   (let* ((socket (usocket:socket-connect host port))
 	 (stream (usocket:socket-stream socket)))
     (write-line command stream)
@@ -47,7 +47,7 @@
       result)))
 
 (defun set-key-in-store (key value store)
-  "Set key in hashtable to value"
+  "Set key in hashtable to value."
   (let* ((exists (gethash key store)))
     (if exists
 	"Key exists. Delete before re-inserting."
@@ -56,14 +56,14 @@
 	  "Stored."))))
 
 (defun get-value-from-store (key store)
-  "Get value of key from hashtable"
+  "Get value of key from hashtable."
   (let* ((value (gethash key store)))
     (if value
 	(format nil "~a" value)
 	(format nil "~a wasn't found." key))))
 
 (defun remove-from-store (key store)
-  "Remove key and value from hashtable"
+  "Remove key and value from hashtable."
   (let* ((value (remhash key store)))
     (if value
 	(format nil "~a has been removed." key)
