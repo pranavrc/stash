@@ -93,3 +93,17 @@
 (defun strip-whitespaces (string)
   "Strip trailing and leading whitespaces from string."
   (string-trim " " string))
+
+(defun serialize-to-db (hashtable outfile)
+  "Serialize hash-table to file for persistence."
+  (with-open-file (stream outfile
+			  :direction :output
+			  :if-exists :append)
+    (with-standard-io-syntax
+      (print hashtable stream))))
+
+(defun load-from-db (infile)
+  "Load key-value pairs from database."
+  (with-open-file (stream infile)
+    (with-standard-io-syntax
+      (read stream))))
