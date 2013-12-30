@@ -1,4 +1,4 @@
 stash
 =====
 
-Barebones NoSQL key-value store with Common Lisp
+In-memory NoSQL key-value store with Common Lisp
