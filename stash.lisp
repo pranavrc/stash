@@ -98,6 +98,7 @@
   "Serialize hash-table to file for persistence."
   (with-open-file (stream outfile
 			  :direction :output
+			  :if-does-not-exist :create
 			  :if-exists :append)
     (with-standard-io-syntax
       (print hashtable stream))))
